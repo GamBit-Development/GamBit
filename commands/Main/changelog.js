@@ -5,12 +5,8 @@ module.exports = ({
 $description[**Version $getVar[Version]**
 
 **Added**:
-- A new developer <3 (\`Yukimero#7235\`)
-- Suggestions category!
-> \`setsuggestionchannel, suggest, comment, approve & reject\` commands!
-
-**Fixed**:
-- Some typos in some commands i cant remember lmao
+- \`say, deleteonsay\` commands!
+- \`antihoisting\` protection (\`$getServerVar[Prefix]antihoisting\`) (BETA!)
 
 ]
 $footer[$username;$authorAvatar]
