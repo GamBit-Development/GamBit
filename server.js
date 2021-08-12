@@ -1,9 +1,10 @@
 const Aoi = require("aoi.js")
  
 const bot = new Aoi.Bot({
-token: "no token for u", 
+token: "ODE4OTEyMTY5NjM4NzU2Mzg1.YEe9Yw.3ubTZQyH4ZUipJZkr8U7QLSR4lY", 
 prefix: "$getServerVar[Prefix]",
-autoUpdate: true
+autoUpdate: true,
+fetchInvites: true
 })
  
 bot.onMessage()
@@ -97,29 +98,7 @@ Path: $rateLimit[path]
 Route: $rateLimit[route]`
 })
 
-bot.loopCommand({
-code: `$editMessage[854790235560738826;{title:**Bot Status**} {description::ping_pong: **Ping**: $ping
-
-:white_check_mark: **Status**: $getVar[Status]
-
------------------------
-
-**Pending Quests**:
-
-$customEmoji[check_yes;846833629627416626] 20,000 Total Members ($allMembersCount / 20,000)
-
-$customEmoji[check_no;846833629627416626] 75 Servers ($serverCount / 75)} {footer:$username:$authorAvatar} {color:$getVar[StatusColor]};854018963104202832]`,
-channel: "854012461014188109",
-executeOnStartup: true,
-every: 30000
-})
-
 //Commands
-
-bot.awaitedCommand({
-    name: "addHPBottles",
-    code: `$setGlobalUserVar[HPBottles;$math[$getGlobalUserVar[HPBottles]+1]]`
-})
 
 // Statuses
 
@@ -138,6 +117,7 @@ bot.status({
 // Variables
 
 
+//Joins
 bot.variables({
     LeavesChannel: "",
     WelcomeChannel: "",
@@ -145,63 +125,43 @@ bot.variables({
     LeaveChannel: "",
     LeaveMessage: "$username just left :(",
     Muted: "false",
-    MuteRole: "",
-    AntiLinks: "false",
-    Version: "1.0 BETA",
-    Warns: "0",
-    Prefix: "$",
-    Blacklist: "false",
-    AFK: "false",
-    AFKMessage: "",
-    Playing: "false",
-    Changelog: "",
-    Money: "0",
-    Bank: "0",
-    Prestige: "0",
-    PrestigeCost: "250000",
-    PrestigeMultiplier: "0",
-    XP: "0",
-    Req: "250",
-    Level: "1",
-    Health: "100",
-    Dungeon: "1",
-    Sword: "[COMMON] Wooden Sword",
-    DamageMultiplier: "0",
-    Bow: "[COMMON] Bow",
-	Arrows: "0",
-    Armor: "",
-	Dimension: "Earth",
-	MinMoney: "50",
-	MaxMoney: "300",
-	ArmorProtection: "0",
-	HPBottles: "1",
-    VIP: "false",
-    SnipeUser: '$username',
-    SnipeContent: "",
-	Color: 'RANDOM',
-    GWActive: 'false',
-    GWRole: '',
-    GWReacted: 'false',
+    JoinRole: '',
+    
+    JoinTitle: "",
+    JoinDes: '',
+    JoinFooter: '',
+    JoinColor: '',
+    JoinImage: '',
+    
+    LeaveTitle: '',
+    LeaveDes: '',
+    LeaveFooter: '',
+    LeaveColor: '',
+    LeaveImage: '',
+    
+    LogJoins: 'false'
+})
+
+//Security
+bot.variables({
     AntiLinks: 'disabled',
     AntiLinksPerms: 'embedlinks',
     AntiJoins: 'disabled',
     AntiEveryone: 'disabled',
     AntiEveryonePerms: 'mentioneveryone',
+})
+
+//Tickets
+bot.variables({
     TicketCount: '0000',
     OpenedTickets: '0',
     MaxTickets: '1',
     TicketMessage: 'Welcome to your ticket! Please wait for a Staff to attend you.',
     TicketInvited: 'false',
-    AntiRaid: 'disabled',
-    TicketUser: '',
-    DelChannel1: '',
-    DelChannel2: '',
-    DelChannel3: '',
-    DelChannel4: '',
-    DelChannel5: '',
-    Status: 'Online',
-    StatusColor: 'GREEN',
-    JoinRole: '',
+})
+
+//Suggestions
+bot.variables({
     SuggestionChannel: '',
     SuggestionCount: '0',
     SuggestionAuthor: '',
@@ -209,6 +169,26 @@ bot.variables({
     SuggestionNumber: '0',
     IsSuggestion: 'false',
     HasBeenModified: 'false',
-    AntiAlts: 'disabled',
-    AntiAltsTime: '604800000'
+})
+
+//Others
+bot.variables({
+    MuteRole: "",
+    Version: "1.8.1",
+    Warns: "0",
+    Prefix: "$",
+    Blacklist: "false",
+    AFK: "false",
+    AFKMessage: "",
+    Playing: "false",
+    Changelog: "",
+    Color: "RANDOM",
+    Dev: 'false'
+})
+
+//Webhooks
+bot.variables({
+    WebhookID: '',
+    WebhookToken: '',
+    DeleteOnSay: 'false'
 })
