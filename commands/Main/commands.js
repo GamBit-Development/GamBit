@@ -6,8 +6,11 @@ $description[GamBit counts with **$commandsCount** commands!
 
 Prefix: \`$getServerVar[Prefix]\`
 
-:tools: **Utility** (17)
-\`staff | userinfo | serverinfo | botinfo | avatar | invite | changelog | setprefix | setwelcomechannel | setwelcomemessage | setleavechannel | setleavemessage | afk | vote | ping | versions | setembedcolor\`
+:hand_splayed: **Welcome System** (4)
+\`setwelcomemessage | setwelcomechannel | setjoinrole | joinmessagepreview\`
+
+:tools: **Utility** (12)
+\`staff | userinfo | serverinfo | botinfo | avatar | invite | changelog | setprefix | afk | vote | ping | setembedcolor\`
 
 :hammer: **Moderation** (18)
 \`warn | unwarn | clearwarnings | setmutedrole | mute | unmute | kick | ban | unban | hackban | lock | unlock | hide | show | clear | nuke | lockdown | unlockdown\`
@@ -23,6 +26,9 @@ Prefix: \`$getServerVar[Prefix]\`
 
 :rofl: **Fun** (4)
 \`meme | joke | shorturl | 8ball\`
+
+:raised_back_of_hand: **Leaves System** (3)
+\`setleavechannel | setleavemessage | leavemessagepreview\`
 
 :question: **Suggestions** NEW (5)
 \`setsuggestionchannel | suggest | comment | approve | reject\`

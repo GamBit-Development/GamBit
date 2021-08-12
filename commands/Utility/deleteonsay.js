@@ -4,11 +4,10 @@ module.exports = {
     code: `$customEmoji[check_yes;846833629627416626] Sucessfully $get[arg] the \`Delete On Say\` function.
 $setServerVar[DeleteOnSay;$message]
 
-$let[arg;
-$if[$message==true]
-enabled
-$else
-disabled
+$let[arg;$if[$message==true] 
+enabled 
+$else 
+disabled 
 $endif
 ]
 

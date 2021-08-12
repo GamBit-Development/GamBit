@@ -12,9 +12,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aoi.js": "^4.0.1",
+    "aoi.js": "^4.4.4",
     "dbd.js": "^3.0.6",
     "discord-buttons": "^2.4.1",
+    "nodeactyl": "^3.1.0",
     "something-random-on-discord": "^3.4.4"
   }
 }
