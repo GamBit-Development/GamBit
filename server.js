@@ -1,7 +1,7 @@
 const Aoi = require("aoi.js")
  
 const bot = new Aoi.Bot({
-token: "ODE4OTEyMTY5NjM4NzU2Mzg1.YEe9Yw.3ubTZQyH4ZUipJZkr8U7QLSR4lY", 
+token: "your token here", 
 prefix: "$getServerVar[Prefix]",
 autoUpdate: true,
 fetchInvites: true
