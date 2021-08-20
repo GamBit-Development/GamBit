@@ -1,11 +1,13 @@
 module.exports = {
     name: 'settings',
     code: `$title[GamBit's Settings]
-$description[$customEmoji[on;846833629627416626] **Server Addons**
+$description[$customEmoji[online;846833629627416626] **Server Addons**
 
 Welcome System $get[wlc]
 
 Leave System $get[lve]
+
+Leveling System $get[ls]
 
 $customEmoji[moderator;846833629627416626] **Security**
 
@@ -31,5 +33,12 @@ $let[wlc;$if[$serverChannelExists[$getServerVar[WelcomeChannel]]==true]
 $customEmoji[on;846833629627416626]
 $else
 $customEmoji[off;846833629627416626]
-$endif]`
+$endif]
+
+$let[ls;$if[$getServerVar[LevelEnabled]==true]
+$customEmoji[on;846833629627416626]
+$else
+$customEmoji[off;846833629627416626]
+$endif]
+`
 }

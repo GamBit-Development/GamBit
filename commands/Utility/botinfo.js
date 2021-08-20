@@ -3,6 +3,8 @@ module.exports = ({
   code: `
 $title[Gambit Bot Info]
 
+$addField[$customEmoji[nodejs;846833629627416626] NodeJS Version;\`\`\`$nodeVersion\`\`\`;yes]
+
 $addField[:brain: CPU Usage;\`\`\`%$cpu\`\`\`;yes]
 
 $addField[:alarm_clock: Uptime;\`\`\`$uptime\`\`\`;yes]
@@ -17,7 +19,7 @@ $addField[:orange_book: Bot Library;\`\`\`Aoi.js\`\`\`;yes]
 
 $addField[:gear: Bot Version;\`\`\`$getVar[Version]\`\`\`;yes]
 
-$addField[:wrench: Bot Developer;\`\`\`Zumo#5792\`\`\`;yes]
+$addField[:wrench: Bot Developer;\`\`\`$username[$botOwnerID]#$discriminator[$botOwnerID]\`\`\`;yes]
 
 $footer[$username;$authorAvatar]
 $addTimestamp

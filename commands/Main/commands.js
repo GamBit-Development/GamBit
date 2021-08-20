@@ -24,6 +24,9 @@ Prefix: \`$getServerVar[Prefix]\`
 :musical_note: **Music** (7)
 \`play | pause | resume | skip | stop | volume | loop\`
 
+:bar_chart: **Level System** NEW (2)
+\`levelsettings | rank\`
+
 :rofl: **Fun** (4)
 \`meme | joke | shorturl | 8ball\`
 

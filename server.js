@@ -171,6 +171,21 @@ bot.variables({
     HasBeenModified: 'false',
 })
 
+//Leveling
+bot.variables({
+    LevelEnabled: 'false',
+    
+    XP: '0',
+    Req: '200',
+    Level: '0',
+    
+    MinXPPerMsg: '1',
+    MaxXPPerMsg: '15',
+    XPCooldown: '1s',
+    ReqMultiplier: '2',
+    LevelUpMessage: 'Congrats, $username! You just advanced to level **$getUserVar[Level]**!'
+})
+
 //Others
 bot.variables({
     MuteRole: "",
