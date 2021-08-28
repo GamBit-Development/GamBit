@@ -1,7 +1,7 @@
 const Aoi = require("aoi.js")
  
 const bot = new Aoi.Bot({
-token: "your token here", 
+token: "Never gonna give you up", 
 prefix: "$getServerVar[Prefix]",
 autoUpdate: true,
 fetchInvites: true
@@ -42,36 +42,45 @@ bot.awaitedCommand({
     code: `$modifyChannelPerms[$channelID;-sendmessages;$getServerVar[MuteRole]]`
 })
 
+//Triggers
+
+bot.onReactionAdd()
+bot.onReactionRemove()
+bot.onMessageDelete()
+bot.onJoined()
+bot.onLeave()
 
 // Callbacks
 
-bot.onReactionAdd({
+bot.deletedCommand({
     channel: '$channelID',
-    code: `$setUserVar[GWReacted;true]
-$onlyForChannels[$channelID;]`
+    code: `$setChannelVar[DelMsg;$message]
+$setChannelVar[DelAuthor;$username]`
 })
 
-bot.onMessageDelete({
-    channel: "$channelID",
-    code: `$setChannelVar[SnipeUser;$authorID]
-$setChannelVar[SnipeContent;$message]`
+bot.reactionAddCommand({
+    channel: '$channelID',
+    code: `$giveRoles[$authorID;$getMessageVar[RRole]]
+$onlyIf[$emojiToString==$getMessageVar[RREmoji];]
+$onlyIf[$channelID==$getMessageVar[RRChannel];]`
 })
 
-bot.onMessageDelete()
+bot.reactionRemoveCommand({
+    channel: '$channelID',
+    code: `$takeRoles[$authorID;$getMessageVar[RRole]]
+$onlyIf[$emojiToString==$getMessageVar[RREmoji];]
+$onlyIf[$channelID==$getMessageVar[RRChannel];]`
+})
 
 bot.joinCommand({
     channel: "$getServerVar[WelcomeChannel]",
     code: `$eval[$getServerVar[WelcomeMessage]]`
 })
 
-bot.onJoined()
-
 bot.leaveCommand({
     channel: "$getServerVar[LeaveChannel]",
     code: `$eval[$getServerVar[LeaveMessage]]`
 })
-
-bot.onLeave()
 
 bot.musicStartCommand({
     channel: "$channelID",
@@ -99,6 +108,16 @@ Route: $rateLimit[route]`
 })
 
 //Commands
+
+bot.awaitedCommand({
+    name: 'CaptchaSetup',
+    code: `$modifyChannelPerms[$channelID;+viewchannel;$getServerVar[CaptchaRole]]`
+})
+
+bot.awaitedCommand({
+    name: 'CaptchaSetup2',
+    code: `$modifyChannelPerms[$channelID;-viewchannel;$guildID]`
+})
 
 // Statuses
 
@@ -206,4 +225,32 @@ bot.variables({
     WebhookID: '',
     WebhookToken: '',
     DeleteOnSay: 'false'
+})
+
+//Reaction Roles
+
+bot.variables({
+    RREmoji: '',
+    RRole: '',
+    RRChannel: ''
+})
+
+//Snipe
+
+bot.variables({
+    DelMsg: '',
+    DelAuthor: ''
+})
+
+//Verification
+
+bot.variables({
+    Captcha: '',
+    CaptchaRole: '',
+    CaptchaTime: '30s',
+    CaptchaLength: '6',
+    CaptchaMaxTries: '3',
+    CaptchaChannel: '',
+    
+    CaptchaTries: '0'
 })

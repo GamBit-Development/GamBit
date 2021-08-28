@@ -5,9 +5,13 @@ module.exports = ({
 $description[**Version $getVar[Version]**
 
 **Added**:
-- Levels Category!
-> \`enablelevels, rank, levelsettings\` commands!
-- Extra field in \`botinfo\` command
+- \`Reaction Roles\` category!
+> \`reactionrole\` command!
+- \`Verification\` category!
+> \`verify, captchasetup\` and more commands!
+
+**Fixed**:
+- Minor bugs
 
 ]
 $footer[$username;$authorAvatar]
