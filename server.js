@@ -254,3 +254,9 @@ bot.variables({
     
     CaptchaTries: '0'
 })
+
+//Chatbot
+
+bot.variables({
+    ChatBotChannel: ''
+})
