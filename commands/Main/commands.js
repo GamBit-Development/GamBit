@@ -30,6 +30,9 @@ Prefix: \`$getServerVar[Prefix]\`
 :rofl: **Fun** (4)
 \`meme | joke | shorturl | 8ball\`
 
+:robot: **Chat Bot** NEW (1)
+\`setchatbotchannel\`
+
 :raised_back_of_hand: **Leaves System** (3)
 \`setleavechannel | setleavemessage | leavemessagepreview\`
 
