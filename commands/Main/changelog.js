@@ -5,13 +5,8 @@ module.exports = ({
 $description[**Version $getVar[Version]**
 
 **Added**:
-- \`Reaction Roles\` category!
-> \`reactionrole\` command!
-- \`Verification\` category!
-> \`verify, captchasetup\` and more commands!
-
-**Fixed**:
-- Minor bugs
+- Chat Bot Category!
+> \`setchatbotchannel\` command!
 
 ]
 $footer[$username;$authorAvatar]
