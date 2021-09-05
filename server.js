@@ -4,7 +4,7 @@ const PlaceHolder = require('./placeholder')
 const ph = new PlaceHolder()
 
 const bot = new Aoi.Bot({
-token: "ODUyMzU2NDc4Nzk4OTIxNzQ4.YMFo1A.M7ihCsZH-HaxJxf6emunGmyS36E", 
+token: "i hate when i forget to change the token omfg at least discord regenerates it automactically so yeah", 
 prefix: "t$",
 autoUpdate: true,
     fetchInvites: true
