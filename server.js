@@ -1,31 +1,37 @@
 const Aoi = require("aoi.js")
-const PlaceHolder = require('./placeholder')
+/*const express = require('express') //creates monitor website
+const app = express() //idk what this does
 
-const ph = new PlaceHolder()
-
-const bot = new Aoi.Bot({
-token: "i hate when i forget to change the token omfg at least discord regenerates it automactically so yeah", 
-prefix: "t$",
-autoUpdate: true,
-    fetchInvites: true
+app.get('/', function (req, res) {
+  res.send('i monitor gambeet')
 })
  
-bot.onMessage()
- 
-bot.loadCommands('./commands/')
+app.listen(1028)
 
-let user = ph.createPlaceHolder('nab')
+this was supposed to be a monitor but yeah*/
+ 
+const bot = new Aoi.Bot({
+token: 'ODE4OTEyMTY5NjM4NzU2Mzg1.YEe9Yw.DPd4ppXrRd59wccuYERXOESj5V8', 
+prefix: '$getServerVar[Prefix]',
+autoUpdate: false,
+fetchInvites: true
+})
+
+bot.onMessage()
+
+/*const loader = new Aoi.LoadCommands(bot)
+ loader.load(bot.cmd,"./commands/")
+ 
+ AOI V5 STUFF
+*/
+
+bot.loadCommands('./commands')
 
 bot.command({
     name: "load",
     code: `Commands were succesfully loaded!
 $updateCommands
 $onlyForIDs[773750233762103296;764799549033545758;You are not allowed to run this command.]`
-})
-
-bot.command({
-    name: 'test',
-    code: `Hi ${user}`
 })
 
 //custom commands
@@ -46,12 +52,9 @@ bot.awaitedCommand({
 })
 
 bot.awaitedCommand({
-    name: 'ch',
-    code: `$channelSendMessage[855078410393223220;$channelName[$channelID]]`
+    name: 'configmute',
+    code: `$modifyChannelPerms[$channelID;-sendmessages;$getServerVar[MuteRole]]`
 })
-
-
-// Callbacks
 
 //Triggers
 
@@ -61,8 +64,7 @@ bot.onMessageDelete()
 bot.onJoined()
 bot.onLeave()
 
-
-//Actions
+// Callbacks
 
 bot.deletedCommand({
     channel: '$channelID',
@@ -84,30 +86,43 @@ $onlyIf[$emojiToString==$getMessageVar[RREmoji];]
 $onlyIf[$channelID==$getMessageVar[RRChannel];]`
 })
 
-
 bot.joinCommand({
     channel: "$getServerVar[WelcomeChannel]",
     code: `$if[$getServerVar[InviteTracker]==true]
-$djsEval[message.channel.send('$eval[$getServerVar[IWelcomeMessage];yes]'
-.replace('{user}', '$username')
-.replace('{user.id}', '$authorID')
-.replace('{inviter}', '$username[$userInfo[inviter]]')
-.replace('{inviter.id}', '$userInfo[inviter]')
-.replace('{invites.total}', '$sum[$userInfo[real];$userInfo[fake]]')
-.replace('{invites.real}', '$userInfo[real]')
-.replace('{invites.fake}', '$userInfo[fake]')
-)]
+$djsEval["$eval[$getServerVar[IWelcomeMessage];yes]"
+.replace("{user}", "$username")
+.replace("{user.id}", "$authorID")
+.replace("{inviter}", "$username[$userInfo[inviter]]")
+.replace("{inviter.id}", "$userInfo[inviter]")
+.replace("{invites.total}", "$sum[$userInfo[real];$userInfo[fake]]")
+.replace("{invites.real}", "$userInfo[real]")
+.replace("{invites.fake}", "$userInfo[fake]")
+.replace("'", "\'")
+]
 
 $else
-$eval[$getServerVar[WelcomeChannel]]
+$djsEval["$eval[$getServerVar[WelcomeMessage];yes]"
+.replace("{user}", "$username")
+.replace("{user.id}", "$authorID")
+.replace("{server}", "$serverName")
+.replace("{members}", "$membersCount")
+.replace("'", "\'")
+]
 $endif`
 })
 
 bot.leaveCommand({
     channel: "$getServerVar[LeaveChannel]",
-    code: `$eval[$getServerVar[LeaveMessage]]`
+    code: `
+$djsEval["$eval[$getServerVar[LeaveMessage];yes]"
+.replace("{user}", "$username")
+.replace("{user.id}", "$authorID")
+.replace("{server}", "$serverName")
+.replace("{members}", "$membersCount")
+.replace("'", "\'")
+]
+`
 })
-
 
 bot.musicStartCommand({
     channel: "$channelID",
@@ -122,16 +137,6 @@ Added by: <@$songInfo[userID]>
 ]
 $addTimestamp
 $color[$getServerVar[Color]]`
-})
-
-bot.rateLimitCommand({
-    channel: '847104458168336394',
-    code: `I've been rate limited!
-Timeout: $rateLimt[timeout]
-Limit: $rateLimit[limit]
-Method: $rateLimit[method]
-Path: $rateLimit[path]
-Route: $rateLimit[route]`
 })
 
 //Commands
@@ -149,24 +154,93 @@ bot.awaitedCommand({
 // Statuses
 
 bot.status({
-  text: "$getVar[Testers] official testers",
+  text: "$allMembersCount members and $serverCount servers! - ($help)",
   type: "WATCHING",
   time: 12
+})
+
+bot.status({
+    text: "Version $getVar[Version] - ($help)",
+    type: "WATCHING",
+    time: 12
 })
 
 // Variables
 
 
+//Joins
 bot.variables({
     LeavesChannel: "",
     WelcomeChannel: "",
     WelcomeMessage: "$username just joined the server!",
     LeaveChannel: "",
     LeaveMessage: "$username just left :(",
+    JoinRole: '',
+    
+    JoinTitle: "",
+    JoinDes: '',
+    JoinFooter: '',
+    JoinColor: '',
+    JoinImage: '',
+    
+    LeaveTitle: '',
+    LeaveDes: '',
+    LeaveFooter: '',
+    LeaveColor: '',
+    LeaveImage: '',
+    
+    LogJoins: 'false'
+})
+
+//Security
+bot.variables({
+    AntiLinks: 'disabled',
+    AntiLinksPerms: 'embedlinks',
+    AntiJoins: 'disabled',
+    AntiEveryone: 'disabled',
+    AntiEveryonePerms: 'mentioneveryone',
+})
+
+//Tickets
+bot.variables({
+    TicketCount: '0000',
+    OpenedTickets: '0',
+    MaxTickets: '1',
+    TicketMessage: 'Welcome to your ticket! Please wait for a Staff to attend you.',
+    TicketInvited: 'false',
+})
+
+//Suggestions
+bot.variables({
+    SuggestionChannel: '',
+    SuggestionCount: '0',
+    SuggestionAuthor: '',
+    SuggestionContent: '',
+    SuggestionNumber: '0',
+    IsSuggestion: 'false',
+    HasBeenModified: 'false',
+})
+
+//Leveling
+bot.variables({
+    LevelEnabled: 'false',
+    
+    XP: '0',
+    Req: '200',
+    Level: '0',
+    
+    MinXPPerMsg: '1',
+    MaxXPPerMsg: '15',
+    XPCooldown: '1s',
+    ReqMultiplier: '2',
+    LevelUpMessage: 'Congrats, $username! You just advanced to level **$getUserVar[Level]**!'
+})
+
+//Others
+bot.variables({
     Muted: "false",
     MuteRole: "",
-    AntiLinks: "false",
-    Version: "1.0 BETA",
+    Version: "1.8.1",
     Warns: "0",
     Prefix: "$",
     Blacklist: "false",
@@ -174,55 +248,18 @@ bot.variables({
     AFKMessage: "",
     Playing: "false",
     Changelog: "",
-    Money: "0",
-    Bank: "0",
-    Prestige: "0",
-    PrestigeCost: "250000",
-    PrestigeMultiplier: "0",
-    XP: "0",
-    Req: "250",
-    Level: "1",
-    Health: "100",
-    Dungeon: "1",
-    Sword: "[COMMON] Wooden Sword",
-    DamageMultiplier: "0",
-    Bow: "[COMMON] Bow",
-	Arrows: "0",
-    Armor: "",
-	Dimension: "Earth",
-	MinMoney: "50",
-	MaxMoney: "300",
-	ArmorProtection: "0",
-	HPBottles: "1",
-    VIP: "false",
-    SnipeUser: '$username',
-    SnipeContent: "",
-	Color: 'RANDOM',
-    GWActive: 'false',
-    GWRole: '',
-    GWReacted: 'false',
-    AntiLinks: 'disabled',
-    AntiLinksPerms: 'embedlinks',
-    AntiJoins: 'disabled',
-    AntiEveryone: 'disabled',
-    AntiEveryonePerms: 'mentioneveryone',
-    TicketCount: '0000',
-    OpenedTickets: '0',
-    MaxTickets: '1',
-    TicketMessage: 'Welcome to your ticket, $username! Please wait for a Staff to attend you.',
-    TicketInvited: 'false',
-    AntiRaid: 'disabled',
-    TicketUser: '',
-    DelChannel1: '',
-    DelChannel2: '',
-    DelChannel3: '',
-    DelChannel4: '',
-    DelChannel5: '',
-    Testers: '0',
-    Tester: 'false',
-    Status: 'online',
-    StatusColor: 'GREEN'
+    Color: "RANDOM",
+    Dev: 'false'
 })
+
+//Webhooks
+bot.variables({
+    WebhookID: '',
+    WebhookToken: '',
+    DeleteOnSay: 'false'
+})
+
+//Reaction Roles
 
 bot.variables({
     RREmoji: '',
@@ -230,10 +267,23 @@ bot.variables({
     RRChannel: ''
 })
 
+//Snipe
+
 bot.variables({
     DelMsg: '',
     DelAuthor: ''
 })
+
+//Tickets
+
+bot.variables({
+    TicketUser: '',
+    TicketCount: '0',
+    TicketMessage: '',
+    OpenedTickets: '0'
+})
+
+//Verification
 
 bot.variables({
     Captcha: '',
@@ -246,8 +296,16 @@ bot.variables({
     CaptchaTries: '0'
 })
 
+//Chatbot
+
 bot.variables({
-    InviteTracker: 'true',
+    ChatBotChannel: ''
+})
+
+//Invite Tracker
+
+bot.variables({
+    InviteTracker: 'false',
     
     IWelcomeMessage: '{user} joined, invited by {inviter} ({invites.total} invites)',
     IWelcomeChannel: '880575536974430229'
