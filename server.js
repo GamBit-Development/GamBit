@@ -11,7 +11,7 @@ app.listen(1028)
 this was supposed to be a monitor but yeah*/
  
 const bot = new Aoi.Bot({
-token: 'ODE4OTEyMTY5NjM4NzU2Mzg1.YEe9Yw.DPd4ppXrRd59wccuYERXOESj5V8', 
+token: 'bruuuv', 
 prefix: '$getServerVar[Prefix]',
 autoUpdate: false,
 fetchInvites: true
